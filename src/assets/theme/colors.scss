@@ -1,0 +1,22 @@
+$primary: #3e1b1b;
+$secondary: #b28725;
+$accent: #e3ac30;
+$white: #ffffff;
+$black: #000000;
+$gray: #a6a6a6;
+
+@mixin create-colors($name, $value) {
+  .app-clr-#{$name} {
+    color: $value;
+  }
+  .app-bg-#{$name} {
+    background: $value;
+  }
+}
+
+@include create-colors("primary", $primary);
+@include create-colors("secondary", $secondary);
+@include create-colors("accent", $accent);
+@include create-colors("white", $white);
+@include create-colors("black", $black);
+@include create-colors("gray", $gray);

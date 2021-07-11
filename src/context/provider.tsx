@@ -2,7 +2,8 @@ import {createContext, useReducer} from 'react';
 import currenciesInitialState from './initialStates/currenciesInitialState';
 import currenciesReducer from './reducers/currenciesReducer';
 
-export const GlobalContext = createContext({});
+const initialState:any =  {};
+export const GlobalContext = createContext(initialState);
 
 const GlobalProvider = ({children}:any) => {
   const [currenciesState, currenciesDispatch] = useReducer(currenciesReducer, currenciesInitialState);

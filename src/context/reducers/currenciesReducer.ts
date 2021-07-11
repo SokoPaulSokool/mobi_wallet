@@ -1,4 +1,4 @@
-import { CurrenciesState } from "../../interfaces/Currencies";
+import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
 const currenciesInitialState: CurrenciesState = {
   currrencies: [
     { amount: "100", units: "USD" },
