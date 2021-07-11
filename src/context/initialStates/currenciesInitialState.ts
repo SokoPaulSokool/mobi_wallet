@@ -1,7 +1,7 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
 
 const currenciesInitialState: CurrenciesState = {
-  currrencies: {
+  currencies: {
     EUR: { amount: 500, units: "EUR", exchangeRate: 1 },
     USD: { amount: 100, units: "USD", exchangeRate: 1.24 },
     CHF: { amount: 30, units: "CHF", exchangeRate: 1.09 },

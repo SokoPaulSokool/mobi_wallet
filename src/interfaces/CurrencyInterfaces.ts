@@ -1,5 +1,5 @@
 export interface CurrenciesState {
-  currrencies: { [key: string]: Currency };
+  currencies: { [key: string]: Currency };
   defaultCurrency: Currency;
 }
 

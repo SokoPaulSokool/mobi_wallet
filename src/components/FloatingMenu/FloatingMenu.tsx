@@ -8,18 +8,14 @@ import {
 
 interface FloatingMenuProps {
   onMenuClick: Function;
-  currentlySelectedMenu: String
+  currentlySelectedMenu: String;
 }
 
 const FloatingMenu: React.FC<FloatingMenuProps> = ({
   onMenuClick,
   currentlySelectedMenu,
 }) => {
-  const menuItems = [
-    TRANSACTION_HISTORY,
-    ADD_NEW_CURRENCY,
-    CHANGE_DEFAULT_CURRENCY,
-  ];
+  const menuItems = [TRANSACTION_HISTORY, ADD_NEW_CURRENCY];
 
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   return (
@@ -28,7 +24,13 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
         <div className="menu-items">
           {menuItems.map((item, i) => {
             return (
-              <div key={i + "k"} className="item" onClick={()=>{onMenuClick(item)}}>
+              <div
+                key={i + "k"}
+                className="item"
+                onClick={() => {
+                  onMenuClick(item);
+                }}
+              >
                 <p>{item}</p>
                 <div className="circle"></div>
               </div>
@@ -37,7 +39,12 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
         </div>
       )}
 
-      <div className="circle menu-toggle" onClick={()=>{setIsMenuOpen(!isMenuOpen)}}></div>
+      <div
+        className="circle menu-toggle"
+        onClick={() => {
+          setIsMenuOpen(!isMenuOpen);
+        }}
+      ></div>
     </div>
   );
 };

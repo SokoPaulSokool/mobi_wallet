@@ -26,7 +26,6 @@ const SetDefaultCurrencyDialog: React.FC<DialogProps> = ({
 
   useEffect(() => {
     if (open) {
-      console.log(currenciesState?.defaultCurrency);
       if (currenciesState?.defaultCurrency) {
         setDefaultCurrency(currenciesState.defaultCurrency);
       }

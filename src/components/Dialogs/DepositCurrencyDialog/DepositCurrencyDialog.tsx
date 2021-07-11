@@ -32,7 +32,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
   useEffect(() => {
     handleClose();
     return () => {};
-  }, [currenciesState?.currrencies]);
+  }, [currenciesState?.currencies]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

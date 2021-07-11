@@ -45,14 +45,14 @@ const LandingPage: React.FC = () => {
     useState(false);
 
   useEffect(() => {
-    if (currenciesState?.currrencies) {
-      const currencies = Object.values(currenciesState?.currrencies).map(
+    if (currenciesState?.currencies) {
+      const currencies = Object.values(currenciesState?.currencies).map(
         (currency) => currency
       );
       setCurrencyList(currencies);
     }
     return () => {};
-  }, [currenciesState]);
+  }, [currenciesState?.currencies]);
 
   const updateTotalisedAmount = () => {
     if (currenciesState?.defaultCurrency && currencyList) {
@@ -114,6 +114,7 @@ const LandingPage: React.FC = () => {
       ></DepositCurrencyDialog>
       <AddCurrencyDialog
         open={isAddNewCurrencyDialogOpen}
+        currencies={currencyList}
         onClose={() => {
           setIsAddNewCurrencyDialogOpen(false);
         }}

@@ -1,5 +1,9 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
-import { DEPOSIT_TO_CURRENCY, EXCHANGE_CURRENCY } from "../actions/types";
+import {
+  ADD_CURRENCY,
+  DEPOSIT_TO_CURRENCY,
+  EXCHANGE_CURRENCY,
+} from "../actions/types";
 import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
 const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
@@ -7,10 +11,10 @@ const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
     case DEPOSIT_TO_CURRENCY:
       return {
         ...state,
-        currrencies: {
-          ...state.currrencies,
+        currencies: {
+          ...state.currencies,
           [payload.currencyUnits]: {
-            ...state.currrencies[payload.currencyUnits],
+            ...state.currencies[payload.currencyUnits],
             amount: payload.newAmount,
           },
         },
@@ -18,14 +22,14 @@ const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
     case EXCHANGE_CURRENCY:
       return {
         ...state,
-        currrencies: {
-          ...state.currrencies,
+        currencies: {
+          ...state.currencies,
           [payload.fromCurrency.units]: {
-            ...state.currrencies[payload.fromCurrency.units],
+            ...state.currencies[payload.fromCurrency.units],
             amount: payload.fromCurrency.amount,
           },
           [payload.toCurrency.units]: {
-            ...state.currrencies[payload.toCurrency.units],
+            ...state.currencies[payload.toCurrency.units],
             amount: payload.toCurrency.amount,
           },
         },
@@ -34,6 +38,14 @@ const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
       return {
         ...state,
         defaultCurrency: payload.defaultCurrency,
+      };
+    case ADD_CURRENCY:
+      return {
+        ...state,
+        currencies: {
+          ...state.currencies,
+          [payload.newCurrency.units]: payload.newCurrency,
+        },
       };
 
     default:
