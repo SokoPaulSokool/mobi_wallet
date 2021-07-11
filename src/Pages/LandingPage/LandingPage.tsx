@@ -19,15 +19,19 @@ import {
   calculateTotalisedAmount,
   roundNumber,
 } from "../../helpers/generalHelpers";
+import { Autocomplete } from "@material-ui/lab";
+import { TextField } from "@material-ui/core";
+import { changeDefaultCurrency } from "../../context/actions/currenciesActions";
 
 const LandingPage: React.FC = () => {
-  const { currenciesState } = useContext(GlobalContext);
+  const { currenciesState, currenciesDispatch } = useContext(GlobalContext);
   const [currencyList, setCurrencyList] = useState<Currency[]>([]);
   const [selectedCurrency, setSelectedCurrency] = useState<
     Currency | undefined
   >(undefined);
 
   const [totalisedAmount, setTotalisedAmount] = useState<number | null>(null);
+  const [defaultCurrency, setDefaultCurrency] = useState<Currency | null>(null);
 
   const [isCurrencyExchangeDialogOpen, setIsCurrencyExchangeDialogOpen] =
     useState(false);
@@ -62,6 +66,7 @@ const LandingPage: React.FC = () => {
   useEffect(() => {
     if (currenciesState?.defaultCurrency) {
       updateTotalisedAmount();
+      setDefaultCurrency(currenciesState?.defaultCurrency);
     }
     return () => {};
   }, [currenciesState?.defaultCurrency, currencyList]);
@@ -80,6 +85,13 @@ const LandingPage: React.FC = () => {
         break;
       default:
         break;
+    }
+  };
+
+  const handleCurrencyChange = (currency: Currency | null) => {
+    if (currency) {
+      setDefaultCurrency(currency);
+      changeDefaultCurrency(currency)(currenciesDispatch);
     }
   };
 
@@ -122,8 +134,22 @@ const LandingPage: React.FC = () => {
 
       <h1>Mobi Wallet</h1>
       <div className="profile">
-        <h3>John Doe</h3>
-        <div className="circle app-bg-accent"></div>
+        <div className="profile-details">
+          <h3>John Doe</h3>
+          <div className="circle app-bg-accent"></div>
+        </div>
+        <div className="default-currency">
+          <Autocomplete
+            className="my-2 w-100 px-0"
+            options={currencyList ? currencyList : []}
+            value={defaultCurrency}
+            getOptionLabel={(option) => option.units}
+            onChange={(event, newValue) => handleCurrencyChange(newValue)}
+            renderInput={(params) => (
+              <TextField {...params} label="Default Currency" />
+            )}
+          />
+        </div>
       </div>
       <div className="totalized">
         <p>Totalised value </p>
