@@ -25,7 +25,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "test:coverage:w": "react-scripts test --coverage --watchAll=true",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{ts,tsx}",
+      "!<rootDir>/src/interfaces/*",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/react-app-env.d.ts",
+      "!<rootDir>/src/reportWebVitals.ts"
+    ]
   },
   "eslintConfig": {
     "extends": [

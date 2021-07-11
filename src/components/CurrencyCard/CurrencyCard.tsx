@@ -2,7 +2,7 @@ import React from "react";
 import AppButton from "../common/AppButton/AppButton";
 import "./CurrencyCard.scss";
 import Currency from "../../interfaces/CurrencyInterfaces";
-import { roundNumber } from '../../helpers/generalHelpers';
+import { roundNumber } from "../../helpers/generalHelpers";
 interface CurrencyCardProps {
   currency: Currency;
   onDepositClick: Function;
@@ -22,16 +22,20 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({
         <div className="line"></div>
       </div>
       <div className="details">
-        <div className="labels">
+        <div data-testid="labels" className="labels">
           <p className="">Currency:</p>
           <h3 className="">Balance:</h3>
         </div>
         <div className="values">
-          <p className="">{currency?.units}</p>
-          <h3 className="">{roundNumber(currency?.amount) }</h3>
+          <p data-testid="card-units" className="">
+            {currency?.units}
+          </p>
+          <h3 data-testid="card-amount" className="">
+            {roundNumber(currency?.amount)}
+          </h3>
         </div>
       </div>
-      <div className="buttons">
+      <div data-testid="card-buttons" className="buttons">
         <AppButton
           text="Deposit"
           className="app-bg-white app-clr-accent"
@@ -40,6 +44,7 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({
           }}
         ></AppButton>
         <AppButton
+          data-testid="exchange-btn"
           text="Exchange"
           className="app-bg-white app-clr-black"
           onClick={() => {

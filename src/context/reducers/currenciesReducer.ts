@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
-const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
+export const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
   switch (type) {
     case DEPOSIT_TO_CURRENCY:
       return {

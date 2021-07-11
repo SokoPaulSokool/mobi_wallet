@@ -16,9 +16,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
   open,
   selectedValue,
 }) => {
-  const [depositAmount, setDepositAmount] = useState<number | undefined>(
-    undefined
-  );
+  const [depositAmount, setDepositAmount] = useState<number | undefined>(0);
   const { currenciesDispatch, currenciesState } = useContext(GlobalContext);
 
   const handleClose = () => {
@@ -26,7 +24,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
   };
 
   useEffect(() => {
-    setDepositAmount(undefined);
+    setDepositAmount(0);
     return () => {};
   }, [open]);
   useEffect(() => {
@@ -45,24 +43,32 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
       <div className="container">
         <DialogTitle id="simple-dialog-title">
           <div>
-            <Typography variant="h4">Deposit</Typography>
+            <Typography variant="h4" data-testid="dialog-title">
+              Deposit
+            </Typography>
           </div>
         </DialogTitle>
         <DialogContent>
           <form
+            data-testid="submit-form"
             onSubmit={handleSubmit}
             className="d-flex row"
             autoComplete="off"
           >
             <TextField
+              data-testid="deposit-amount"
               label="How Much"
               className="my-2"
               required={true}
               type="number"
               value={depositAmount}
-              onChange={(event) =>
-                setDepositAmount(parseInt(event.target.value))
-              }
+              onChange={(event) => {
+                if (parseInt(event.target.value)) {
+                  setDepositAmount(parseInt(event.target.value));
+                } else {
+                  setDepositAmount(0);
+                }
+              }}
             />
             <AppButton
               className="app-bg-accent app-clr-white"

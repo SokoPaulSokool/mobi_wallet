@@ -19,13 +19,14 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   return (
-    <div className="floating-menu">
+    <div data-testid="floating-menu-list" className="floating-menu">
       {isMenuOpen && (
         <div className="menu-items">
           {menuItems.map((item, i) => {
             return (
               <div
                 key={i + "k"}
+                data-testid={"floating-menu-list-item-"+i}
                 className="item"
                 onClick={() => {
                   onMenuClick(item);
@@ -41,6 +42,7 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
 
       <div
         className="circle menu-toggle"
+        data-testid="floating-menu-list-toggle"
         onClick={() => {
           setIsMenuOpen(!isMenuOpen);
         }}

@@ -8,7 +8,7 @@ function App() {
 
   return (
     <GlobalProvider>
-      <div className="App">
+      <div className="App" data-testid="app">
        <LandingPage></LandingPage>
       </div>
     </GlobalProvider>

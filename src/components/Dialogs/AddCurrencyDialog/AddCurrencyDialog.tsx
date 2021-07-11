@@ -21,11 +21,11 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
 }) => {
   const { currenciesDispatch, currenciesState } = useContext(GlobalContext);
 
-  const [currencyUnits, setCurrencyUnits] = useState<string | null>(null);
+  const [currencyUnits, setCurrencyUnits] = useState<string | null>("");
   const [error, setError] = useState("");
   const [currencyExchangeRate, setCurrencyExchangeRate] = useState<
     number | null
-  >(null);
+  >(0);
 
   const handleClose = () => {
     onClose();
@@ -35,7 +35,7 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
     if (open) {
       setError("");
       setCurrencyUnits("");
-      setCurrencyExchangeRate(null);
+      setCurrencyExchangeRate(1);
     }
     return () => {};
   }, [open]);
@@ -51,8 +51,8 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
           units: currencyUnits,
         };
         addCurrency(newCurrency)(currenciesDispatch);
-      }else{
-        setError("Currency already exists")
+      } else {
+        setError("Currency already exists");
       }
     }
   };
@@ -69,17 +69,21 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
       <div className="container">
         <DialogTitle id="simple-dialog-title">
           <div>
-            <Typography variant="h4">Deposit</Typography>
+            <Typography variant="h4" data-testid="dialog-title">
+              Deposit
+            </Typography>
             <p className="error-text">{error}</p>
           </div>
         </DialogTitle>
         <DialogContent>
           <form
+          data-testid="submit-form"
             onSubmit={handleSubmit}
             className="d-flex row"
             autoComplete="off"
           >
             <TextField
+              data-testid="currency-units"
               label="Currency Units"
               className="my-2"
               required={true}
@@ -94,16 +98,22 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
               }}
             />
             <TextField
+              data-testid="currency-exchange-rate"
               label="Euro Exchange Rate"
               className="my-2"
               required={true}
               type="number"
               value={currencyExchangeRate}
-              onChange={(event) =>
-                setCurrencyExchangeRate(parseFloat(event.target.value))
-              }
+              onChange={(event) => {
+                if (parseFloat(event.target.value)) {
+                  setCurrencyExchangeRate(parseFloat(event.target.value));
+                } else {
+                  setCurrencyExchangeRate(0);
+                }
+              }}
             />
             <AppButton
+              data-testid="submit-btn"
               className="app-bg-accent app-clr-white"
               text="Submit"
               type="submit"

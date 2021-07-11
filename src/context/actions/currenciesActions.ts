@@ -3,9 +3,7 @@ import { ADD_CURRENCY, DEPOSIT_TO_CURRENCY, EXCHANGE_CURRENCY } from "./types";
 import { exchangeCurrency } from "../../helpers/generalHelpers";
 import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
-const currenciesActions = () => {
-  return {};
-};
+
 export const depositCurrency =
   (currency: Currency, depositAmount: number) => (dispatch: any) => {
     const newAmount = currency.amount + depositAmount;
@@ -53,4 +51,4 @@ export const addCurrency =
     });
   };
 
-export default currenciesActions;
+

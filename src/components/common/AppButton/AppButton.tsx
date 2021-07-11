@@ -16,6 +16,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
 }: AppButtonProps) => {
   return (
     <button
+      data-testid="app-button"
       className={"app-button " + className}
       type={type ? type : "button"}
       onClick={() => {

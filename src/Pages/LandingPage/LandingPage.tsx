@@ -12,7 +12,6 @@ import {
   CHANGE_DEFAULT_CURRENCY,
 } from "../../constants/generalConstants";
 import AddCurrencyDialog from "../../components/Dialogs/AddCurrencyDialog/AddCurrencyDialog";
-import SetDefaultCurrencyDialog from "../../components/Dialogs/SetDefaultCurrencyDialog/SetDefaultCurrencyDialog";
 import TransactionHistoryDialog from "../../components/Dialogs/TransactionHistoryDialog/TransactionHistoryDialog";
 import Currency from "../../interfaces/CurrencyInterfaces";
 import {
@@ -37,12 +36,22 @@ const LandingPage: React.FC = () => {
     useState(false);
   const [isDepositCurrencyDialogOpen, setIsDepositCurrencyDialogOpen] =
     useState(false);
-  const [isSetDefaultCurrencyDialogOpen, setIsSetDefaultCurrencyDialogOpen] =
-    useState(false);
   const [isAddNewCurrencyDialogOpen, setIsAddNewCurrencyDialogOpen] =
     useState(false);
   const [isTransactionHistoryDialogOpen, setIsTransactionHistoryDialogOpen] =
     useState(false);
+
+
+    useEffect(() => {
+      if (currenciesState?.currencies) {
+        const currencies = Object.values(currenciesState?.currencies).map(
+          (currency) => currency
+        );
+        setCurrencyList(currencies);
+      }
+      return () => {
+      };
+    }, []);
 
   useEffect(() => {
     if (currenciesState?.currencies) {
@@ -80,9 +89,6 @@ const LandingPage: React.FC = () => {
       case ADD_NEW_CURRENCY:
         setIsAddNewCurrencyDialogOpen(!isAddNewCurrencyDialogOpen);
         break;
-      case CHANGE_DEFAULT_CURRENCY:
-        setIsSetDefaultCurrencyDialogOpen(!isSetDefaultCurrencyDialogOpen);
-        break;
       default:
         break;
     }
@@ -96,7 +102,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="landing-page container mt-2">
+    <div data-testid="landing-page" className="landing-page container mt-2">
       <ExchangeCurrencyDialog
         open={isCurrencyExchangeDialogOpen}
         selectedValue={selectedCurrency}
@@ -119,13 +125,6 @@ const LandingPage: React.FC = () => {
           setIsAddNewCurrencyDialogOpen(false);
         }}
       ></AddCurrencyDialog>
-      <SetDefaultCurrencyDialog
-        open={isSetDefaultCurrencyDialogOpen}
-        currencies={currencyList}
-        onClose={() => {
-          setIsSetDefaultCurrencyDialogOpen(false);
-        }}
-      ></SetDefaultCurrencyDialog>
       <TransactionHistoryDialog
         open={isTransactionHistoryDialogOpen}
         onClose={() => {
@@ -133,14 +132,15 @@ const LandingPage: React.FC = () => {
         }}
       ></TransactionHistoryDialog>
 
-      <h1>Mobi Wallet</h1>
+      <h1 data-testid="app-name">Mobi Wallet</h1>
       <div className="profile">
         <div className="profile-details">
-          <h3>John Doe</h3>
+          <h3 data-testid="user-name">John Doe</h3>
           <div className="circle app-bg-accent"></div>
         </div>
         <div className="default-currency">
           <Autocomplete
+            data-testid="default-currency"
             className="my-2 w-100 px-0"
             options={currencyList ? currencyList : []}
             value={defaultCurrency}
@@ -153,12 +153,12 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
       <div className="totalized">
-        <p>Totalised value </p>
-        <h1>
+        <p data-testid="totallised-value-label">Totalised value</p>
+        <h1 data-testid="totallised-value-details">
           {currenciesState?.defaultCurrency.units} {totalisedAmount}
         </h1>
       </div>
-      <div className="currencies">
+      <div className="currencies" data-testid="currency-cards">
         {currencyList.map((currency: Currency, i: number) => {
           return (
             <CurrencyCard

@@ -12,7 +12,7 @@ const TransactionHistoryDialog: React.FC<DialogProps> = ({ onClose, open }) => {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">
+      <DialogTitle id="simple-dialog-title" data-testid="dialog-title">
         TransactionHistoryDialog
       </DialogTitle>
     </Dialog>

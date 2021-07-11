@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TransactionHistoryDialog from './TransactionHistoryDialog';
 
-test('renders LandingPage', () => {
-    const { getByText } = render(<TransactionHistoryDialog onClose={()=>{}} open={true}  />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders TransactionHistoryDialog', () => {
+    const { getByTestId } = render(<TransactionHistoryDialog onClose={()=>{}} open={true}  />);
+    const dialogTitle = getByTestId("dialog-title");
+    
+    expect(dialogTitle).toBeInTheDocument();
 });

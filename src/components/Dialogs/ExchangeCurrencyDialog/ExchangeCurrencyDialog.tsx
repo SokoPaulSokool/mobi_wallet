@@ -23,13 +23,9 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
   const [selectedExchangeCurrency, setSelectedExchangeCurrency] =
     useState<Currency | null>(null);
 
-  const [exchangeAmount, setExchangeAmount] = useState<number | undefined>(
-    undefined
-  );
+  const [exchangeAmount, setExchangeAmount] = useState<number | undefined>(0);
 
-  const [convertedAmount, setConvertedAmount] = useState<number | undefined>(
-    undefined
-  );
+  const [convertedAmount, setConvertedAmount] = useState<number | undefined>(0);
 
   const { currenciesDispatch, currenciesState } = useContext(GlobalContext);
 
@@ -45,11 +41,23 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
 
   useEffect(() => {
     if (open) {
-      setExchangeAmount(undefined);
-      setConvertedAmount(undefined);
+      setExchangeAmount(0);
+      setConvertedAmount(0);
     }
     return () => {};
   }, [open]);
+
+  useEffect(() => {
+    handleClose();
+    return () => {};
+  }, [currenciesState?.currencies]);
+
+  useEffect(() => {
+    if (exchangeAmount && selectedExchangeCurrency && selectedCurrency) {
+      handleAmountChange(exchangeAmount);
+    }
+    return () => {};
+  }, [exchangeAmount, selectedExchangeCurrency]);
 
   const handleCurrencyChange = (currency: Currency | null) => {
     if (currency) {
@@ -73,33 +81,42 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
     }
   };
 
+  const handleAmountChange = (value: number) => {
+    setExchangeAmount(value);
+  };
+
   return (
     <Dialog onClose={handleClose} maxWidth="sm" fullWidth={true} open={open}>
       <div className="container">
         <DialogTitle id="simple-dialog-title">
           <div>
-            <Typography variant="h4">Exchange Currency</Typography>
+            <Typography variant="h4" data-testid="dialog-title">
+              Exchange Currency
+            </Typography>
           </div>
         </DialogTitle>
         <DialogContent>
           <form
+            data-testid="submit-form"
             onSubmit={handleSubmit}
             className="d-flex row"
             autoComplete="off"
           >
             <h3 className="my-1">{selectedCurrency?.units}</h3>
             <TextField
+              data-testid="exchange-amount"
               label="How Much"
               className=" w-100"
               required={true}
               type="number"
               value={exchangeAmount}
-              onChange={(event) =>
-                setExchangeAmount(parseInt(event.target.value))
-              }
+              onChange={(event) => {
+                handleAmountChange(parseInt(event.target.value));
+              }}
             />
             <h3 className="my-2">To</h3>
             <Autocomplete
+              data-testid="exchange-currency"
               className="my-2 w-100 px-0"
               options={currencies ? currencies : []}
               getOptionLabel={(option) => option.units}
