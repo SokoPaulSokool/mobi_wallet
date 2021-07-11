@@ -2,6 +2,7 @@ import React from "react";
 import AppButton from "../common/AppButton/AppButton";
 import "./CurrencyCard.scss";
 import Currency from "../../interfaces/CurrencyInterfaces";
+import { roundNumber } from '../../helpers/generalHelpers';
 interface CurrencyCardProps {
   currency: Currency;
   onDepositClick: Function;
@@ -27,7 +28,7 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({
         </div>
         <div className="values">
           <p className="">{currency?.units}</p>
-          <h3 className="">{currency?.amount}</h3>
+          <h3 className="">{roundNumber(currency?.amount) }</h3>
         </div>
       </div>
       <div className="buttons">

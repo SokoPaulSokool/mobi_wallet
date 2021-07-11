@@ -50,20 +50,21 @@ const LandingPage: React.FC = () => {
     return () => {};
   }, [currenciesState]);
 
-  useEffect(() => {
-    if (currenciesState?.defaultCurrency) {
+  const updateTotalisedAmount = () => {
+    if (currenciesState?.defaultCurrency && currencyList) {
       const total = roundNumber(
-        calculateTotalisedAmount(
-          currencyList,
-          currenciesState?.defaultCurrency
-        ),
-        2
+        calculateTotalisedAmount(currencyList, currenciesState?.defaultCurrency)
       );
-
       setTotalisedAmount(total);
     }
+  };
+
+  useEffect(() => {
+    if (currenciesState?.defaultCurrency) {
+      updateTotalisedAmount();
+    }
     return () => {};
-  }, [currenciesState?.defaultCurrency]);
+  }, [currenciesState?.defaultCurrency, currencyList]);
 
   const handleFloatingMenuClick = (clickedOption: String) => {
     switch (clickedOption) {

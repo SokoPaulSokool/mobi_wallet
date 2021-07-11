@@ -24,6 +24,6 @@ export const calculateTotalisedAmount = (
   return totalalisedAmount;
 };
 
-export const roundNumber = (num: number, n: number): number => {
+export const roundNumber = (num: number, n = 2): number => {
   return parseFloat((Math.round(num * 100) / 100).toFixed(n));
 };
