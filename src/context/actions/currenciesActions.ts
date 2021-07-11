@@ -1,6 +1,7 @@
 import Currency from "../../interfaces/CurrencyInterfaces";
 import { DEPOSIT_TO_CURRENCY, EXCHANGE_CURRENCY } from "./types";
 import { exchangeCurrency } from "../../helpers/generalHelpers";
+import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
 const currenciesActions = () => {
   return {};
@@ -25,8 +26,6 @@ export const currencyExchange =
     );
     const newFromCurrencyTotal = fromCurrency.amount - amountToExchange;
     const newToCurrencyTotal = toCurrency.amount + exchangedCurrency;
-    // const newAmount = currency.amount + depositAmount;
-    // console.log(currency);
     dispatch({
       type: EXCHANGE_CURRENCY,
       payload: {
@@ -36,6 +35,14 @@ export const currencyExchange =
         },
         toCurrency: { units: toCurrency.units, amount: newToCurrencyTotal },
       },
+    });
+  };
+
+export const changeDefaultCurrency =
+  (defaultCurrency: Currency) => (dispatch: any) => {
+    dispatch({
+      type: CHANGE_DEFAULT_CURRENCY,
+      payload: { defaultCurrency },
     });
   };
 

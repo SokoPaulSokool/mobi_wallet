@@ -15,6 +15,10 @@ import AddCurrencyDialog from "../../components/Dialogs/AddCurrencyDialog/AddCur
 import SetDefaultCurrencyDialog from "../../components/Dialogs/SetDefaultCurrencyDialog/SetDefaultCurrencyDialog";
 import TransactionHistoryDialog from "../../components/Dialogs/TransactionHistoryDialog/TransactionHistoryDialog";
 import Currency from "../../interfaces/CurrencyInterfaces";
+import {
+  calculateTotalisedAmount,
+  roundNumber,
+} from "../../helpers/generalHelpers";
 
 const LandingPage: React.FC = () => {
   const { currenciesState } = useContext(GlobalContext);
@@ -22,6 +26,8 @@ const LandingPage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState<
     Currency | undefined
   >(undefined);
+
+  const [totalisedAmount, setTotalisedAmount] = useState<number | null>(null);
 
   const [isCurrencyExchangeDialogOpen, setIsCurrencyExchangeDialogOpen] =
     useState(false);
@@ -43,6 +49,21 @@ const LandingPage: React.FC = () => {
     }
     return () => {};
   }, [currenciesState]);
+
+  useEffect(() => {
+    if (currenciesState?.defaultCurrency) {
+      const total = roundNumber(
+        calculateTotalisedAmount(
+          currencyList,
+          currenciesState?.defaultCurrency
+        ),
+        2
+      );
+
+      setTotalisedAmount(total);
+    }
+    return () => {};
+  }, [currenciesState?.defaultCurrency]);
 
   const handleFloatingMenuClick = (clickedOption: String) => {
     switch (clickedOption) {
@@ -86,6 +107,7 @@ const LandingPage: React.FC = () => {
       ></AddCurrencyDialog>
       <SetDefaultCurrencyDialog
         open={isSetDefaultCurrencyDialogOpen}
+        currencies={currencyList}
         onClose={() => {
           setIsSetDefaultCurrencyDialogOpen(false);
         }}
@@ -104,7 +126,9 @@ const LandingPage: React.FC = () => {
       </div>
       <div className="totalized">
         <p>Totalised value </p>
-        <h1>USD 100000</h1>
+        <h1>
+          {currenciesState?.defaultCurrency.units} {totalisedAmount}
+        </h1>
       </div>
       <div className="currencies">
         {currencyList.map((currency: Currency, i: number) => {

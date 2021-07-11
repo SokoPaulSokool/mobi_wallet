@@ -1,5 +1,6 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
 import { DEPOSIT_TO_CURRENCY, EXCHANGE_CURRENCY } from "../actions/types";
+import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
 const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
   switch (type) {
@@ -28,6 +29,11 @@ const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
             amount: payload.toCurrency.amount,
           },
         },
+      };
+    case CHANGE_DEFAULT_CURRENCY:
+      return {
+        ...state,
+        defaultCurrency: payload.defaultCurrency,
       };
 
     default:

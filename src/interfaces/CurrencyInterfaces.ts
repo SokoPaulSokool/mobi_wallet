@@ -1,6 +1,6 @@
 export interface CurrenciesState {
   currrencies: { [key: string]: Currency };
-  defaultCurrencyUnits: string;
+  defaultCurrency: Currency;
 }
 
 export default interface Currency {
