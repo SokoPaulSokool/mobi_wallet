@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext, useState } from "react";
 import CurrencyCard from "../../components/CurrencyCard/CurrencyCard";
 import { GlobalContext } from "../../context/provider";
@@ -20,6 +20,7 @@ import Currency from '../../interfaces/CurrencyInterfaces';
 
 const LandingPage: React.FC = () => {
   const { currenciesState } = useContext(GlobalContext);
+  const [currencyList, setCurrencyList] = useState<Currency[]>([]);
 
   const [isCurrencyExchangeDialogOpen, setIsCurrencyExchangeDialogOpen] =
     useState(false);
@@ -31,6 +32,17 @@ const LandingPage: React.FC = () => {
     useState(false);
   const [isTransactionHistoryDialogOpen, setIsTransactionHistoryDialogOpen] =
     useState(false);
+
+
+  useEffect(() => {
+    if(currenciesState?.currrencies){
+     const currencies = Object.values(currenciesState?.currrencies).map(currency=>currency);
+     setCurrencyList(currencies)
+    }
+    return () => {
+      
+    };
+  }, [currenciesState]);
 
   const handleFloatingMenuClick = (clickedOption: String) => {
     switch (clickedOption) {
@@ -92,7 +104,7 @@ const LandingPage: React.FC = () => {
         <h1>USD 100000</h1>
       </div>
       <div className="currencies">
-        {currenciesState?.currrencies.map((currency: Currency, i: number) => {
+        {currencyList.map((currency: any, i: number) => {
           return (
             <CurrencyCard
               key={i + "p"}

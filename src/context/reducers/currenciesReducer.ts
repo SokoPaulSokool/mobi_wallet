@@ -1,14 +1,14 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
-const currenciesInitialState: CurrenciesState = {
-  currrencies: [
-    { amount: "100", units: "USD" },
-    { amount: "500", units: "EUR" },
-    { amount: "10000", units: "CHF" },
-  ],
-};
+// const currenciesInitialState: CurrenciesState = {
+//   currrencies:{
+//     USD:{ amount: "100", units: "USD" },
+//     EUR:{ amount: "500", units: "EUR" },
+//     CHF:{ amount: "10000", units: "CHF" },
+//   }
+// };
 
 const currenciesReducer = (
-  state: CurrenciesState = currenciesInitialState,
+  state: CurrenciesState ,
   { type, payload }: any
 ) => {
   switch (type) {
