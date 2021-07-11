@@ -1,19 +1,20 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
-// const currenciesInitialState: CurrenciesState = {
-//   currrencies:{
-//     USD:{ amount: "100", units: "USD" },
-//     EUR:{ amount: "500", units: "EUR" },
-//     CHF:{ amount: "10000", units: "CHF" },
-//   }
-// };
+import { DEPOSIT_TO_CURRENCY } from "../actions/types";
 
-const currenciesReducer = (
-  state: CurrenciesState ,
-  { type, payload }: any
-) => {
+const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
   switch (type) {
-    // case typeName:
-    //     return { ...state, ...payload }
+    case DEPOSIT_TO_CURRENCY:
+      console.log(payload);
+      return {
+        ...state,
+        currrencies: {
+          ...state.currrencies,
+          [payload.currencyUnits]: {
+            ...state.currrencies[payload.currencyUnits],
+            amount: payload.newAmount,
+          },
+        },
+      };
 
     default:
       return state;

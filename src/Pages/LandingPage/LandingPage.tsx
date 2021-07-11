@@ -21,6 +21,7 @@ import Currency from '../../interfaces/CurrencyInterfaces';
 const LandingPage: React.FC = () => {
   const { currenciesState } = useContext(GlobalContext);
   const [currencyList, setCurrencyList] = useState<Currency[]>([]);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency|undefined>(undefined)
 
   const [isCurrencyExchangeDialogOpen, setIsCurrencyExchangeDialogOpen] =
     useState(false);
@@ -65,12 +66,14 @@ const LandingPage: React.FC = () => {
     <div className="landing-page container mt-2">
       <ExchangeCurrencyDialog
         open={isCurrencyExchangeDialogOpen}
+        selectedValue={selectedCurrency}
         onClose={() => {
           setIsCurrencyExchangeDialogOpen(false);
         }}
       ></ExchangeCurrencyDialog>
       <DepositCurrencyDialog
         open={isDepositCurrencyDialogOpen}
+        selectedValue={selectedCurrency}
         onClose={() => {
           setIsDepositCurrencyDialogOpen(false);
         }}
@@ -104,16 +107,18 @@ const LandingPage: React.FC = () => {
         <h1>USD 100000</h1>
       </div>
       <div className="currencies">
-        {currencyList.map((currency: any, i: number) => {
+        {currencyList.map((currency: Currency, i: number) => {
           return (
             <CurrencyCard
               key={i + "p"}
               currency={currency}
               onDepositClick={() => {
                 setIsDepositCurrencyDialogOpen(true);
+                setSelectedCurrency(currency)
               }}
               onExchangeClick={() => {
                 setIsCurrencyExchangeDialogOpen(true);
+                setSelectedCurrency(currency)
               }}
             ></CurrencyCard>
           );

@@ -1,2 +1,2 @@
 
-export const hh = 'Change Default Currency';
+export const DEPOSIT_TO_CURRENCY = "DEPOSIT_TO_CURRENCY";
