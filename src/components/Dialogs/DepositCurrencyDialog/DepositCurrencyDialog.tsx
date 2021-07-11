@@ -34,7 +34,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
     return () => {};
   }, [currenciesState?.currrencies]);
 
-  const handleSubmmit = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (depositAmount) {
       depositCurrency(selectedValue, depositAmount)(currenciesDispatch);
@@ -44,11 +44,13 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
     <Dialog onClose={handleClose} maxWidth="sm" fullWidth={true} open={open}>
       <div className="container">
         <DialogTitle id="simple-dialog-title">
-          <Typography variant="h4">Deposit</Typography>
+          <div>
+            <Typography variant="h4">Deposit</Typography>
+          </div>
         </DialogTitle>
         <DialogContent>
           <form
-            onSubmit={handleSubmmit}
+            onSubmit={handleSubmit}
             className="d-flex row"
             autoComplete="off"
           >

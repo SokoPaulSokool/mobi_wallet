@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import CurrencyCard from "../../components/CurrencyCard/CurrencyCard";
 import { GlobalContext } from "../../context/provider";
@@ -14,14 +14,14 @@ import {
 import AddCurrencyDialog from "../../components/Dialogs/AddCurrencyDialog/AddCurrencyDialog";
 import SetDefaultCurrencyDialog from "../../components/Dialogs/SetDefaultCurrencyDialog/SetDefaultCurrencyDialog";
 import TransactionHistoryDialog from "../../components/Dialogs/TransactionHistoryDialog/TransactionHistoryDialog";
-import Currency from '../../interfaces/CurrencyInterfaces';
-
-
+import Currency from "../../interfaces/CurrencyInterfaces";
 
 const LandingPage: React.FC = () => {
   const { currenciesState } = useContext(GlobalContext);
   const [currencyList, setCurrencyList] = useState<Currency[]>([]);
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency|undefined>(undefined)
+  const [selectedCurrency, setSelectedCurrency] = useState<
+    Currency | undefined
+  >(undefined);
 
   const [isCurrencyExchangeDialogOpen, setIsCurrencyExchangeDialogOpen] =
     useState(false);
@@ -34,15 +34,14 @@ const LandingPage: React.FC = () => {
   const [isTransactionHistoryDialogOpen, setIsTransactionHistoryDialogOpen] =
     useState(false);
 
-
   useEffect(() => {
-    if(currenciesState?.currrencies){
-     const currencies = Object.values(currenciesState?.currrencies).map(currency=>currency);
-     setCurrencyList(currencies)
+    if (currenciesState?.currrencies) {
+      const currencies = Object.values(currenciesState?.currrencies).map(
+        (currency) => currency
+      );
+      setCurrencyList(currencies);
     }
-    return () => {
-      
-    };
+    return () => {};
   }, [currenciesState]);
 
   const handleFloatingMenuClick = (clickedOption: String) => {
@@ -67,6 +66,7 @@ const LandingPage: React.FC = () => {
       <ExchangeCurrencyDialog
         open={isCurrencyExchangeDialogOpen}
         selectedValue={selectedCurrency}
+        currencies={currencyList}
         onClose={() => {
           setIsCurrencyExchangeDialogOpen(false);
         }}
@@ -114,11 +114,11 @@ const LandingPage: React.FC = () => {
               currency={currency}
               onDepositClick={() => {
                 setIsDepositCurrencyDialogOpen(true);
-                setSelectedCurrency(currency)
+                setSelectedCurrency(currency);
               }}
               onExchangeClick={() => {
                 setIsCurrencyExchangeDialogOpen(true);
-                setSelectedCurrency(currency)
+                setSelectedCurrency(currency);
               }}
             ></CurrencyCard>
           );
@@ -130,7 +130,6 @@ const LandingPage: React.FC = () => {
       ></FloatingMenu>
     </div>
   );
-}
+};
 
-export default LandingPage
-
+export default LandingPage;

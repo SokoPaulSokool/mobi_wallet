@@ -1,9 +1,10 @@
 export interface CurrenciesState {
   currrencies: { [key: string]: Currency };
-  // depositComplete?: boolean
+  defaultCurrencyUnits: string;
 }
 
 export default interface Currency {
   units: string;
   amount: number;
+  exchangeRate: number;
 }
