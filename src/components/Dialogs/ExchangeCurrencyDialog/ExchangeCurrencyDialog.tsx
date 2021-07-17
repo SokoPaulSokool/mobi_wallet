@@ -29,6 +29,8 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
 
   const { currenciesDispatch, currenciesState } = useContext(GlobalContext);
 
+  const [error, setError] = useState("");
+
   const handleClose = () => {
     onClose();
   };
@@ -41,6 +43,7 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
 
   useEffect(() => {
     if (open) {
+      setError("");
       setExchangeAmount(0);
       setConvertedAmount(0);
     }
@@ -55,6 +58,9 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
   useEffect(() => {
     if (exchangeAmount && selectedExchangeCurrency && selectedCurrency) {
       handleAmountChange(exchangeAmount);
+      setConvertedAmount(
+        exchangeCurrency(exchangeAmount, selectedCurrency, selectedExchangeCurrency)
+      );
     }
     return () => {};
   }, [exchangeAmount, selectedExchangeCurrency]);
@@ -78,11 +84,19 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
         selectedCurrency,
         selectedExchangeCurrency
       )(currenciesDispatch);
+      setError("");
+    }else if(exchangeAmount===0){
+      setError("No amount to exchange");
     }
   };
 
   const handleAmountChange = (value: number) => {
     setExchangeAmount(value);
+    if (selectedCurrency && value > selectedCurrency?.amount) {
+      setError("The amount is greater than the available amount");
+    }else{
+      setError("");
+    }
   };
 
   return (
@@ -93,6 +107,7 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
             <Typography variant="h4" data-testid="dialog-title">
               Exchange Currency
             </Typography>
+            <p className="error-text">{error}</p>
           </div>
         </DialogTitle>
         <DialogContent>
@@ -122,15 +137,17 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
               getOptionLabel={(option) => option.units}
               onChange={(event, newValue) => handleCurrencyChange(newValue)}
               renderInput={(params) => (
-                <TextField {...params} label="Select Currency" />
+                <TextField {...params} required={true} label="Select Currency" />
               )}
             />
             <h3 className="my-2">{convertedAmount}</h3>
-            <AppButton
-              className="app-bg-accent app-clr-white"
-              text="Exchange"
-              type="submit"
-            ></AppButton>
+            {!error && (
+              <AppButton
+                className="app-bg-accent app-clr-white"
+                text="Exchange"
+                type="submit"
+              ></AppButton>
+            )}
           </form>
         </DialogContent>
       </div>

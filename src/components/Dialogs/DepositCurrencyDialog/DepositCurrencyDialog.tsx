@@ -19,12 +19,15 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
   const [depositAmount, setDepositAmount] = useState<number | undefined>(0);
   const { currenciesDispatch, currenciesState } = useContext(GlobalContext);
 
+  const [error, setError] = useState("");
+
   const handleClose = () => {
     onClose();
   };
 
   useEffect(() => {
     setDepositAmount(0);
+    setError("");
     return () => {};
   }, [open]);
   useEffect(() => {
@@ -36,6 +39,9 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
     e.preventDefault();
     if (depositAmount) {
       depositCurrency(selectedValue, depositAmount)(currenciesDispatch);
+      setError("");
+    }else{
+      setError("No amount to deposit");
     }
   };
   return (
@@ -46,6 +52,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
             <Typography variant="h4" data-testid="dialog-title">
               Deposit
             </Typography>
+            <p className="error-text">{error}</p>
           </div>
         </DialogTitle>
         <DialogContent>
@@ -65,6 +72,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
               onChange={(event) => {
                 if (parseInt(event.target.value)) {
                   setDepositAmount(parseInt(event.target.value));
+                  setError("");
                 } else {
                   setDepositAmount(0);
                 }
