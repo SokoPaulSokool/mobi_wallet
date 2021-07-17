@@ -9,6 +9,7 @@ const currenciesInitialState: CurrenciesState = {
     KES: { amount: 50, units: "KES", exchangeRate: 128.0 },
   },
   defaultCurrency: { amount: 100, units: "USD", exchangeRate: 1.24 },
+  transactionHistory:[]
 };
 
 export default currenciesInitialState;

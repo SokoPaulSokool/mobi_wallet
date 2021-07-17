@@ -3,6 +3,7 @@ import { currenciesReducer } from "./currenciesReducer";
 import currenciesInitialState from "../initialStates/currenciesInitialState";
 import {
   ADD_CURRENCY,
+  ADD_TRANSACTION_HISTORY,
   DEPOSIT_TO_CURRENCY,
   EXCHANGE_CURRENCY,
 } from "../actions/types";
@@ -42,6 +43,19 @@ test("currenciesReducer ADD_CURRENCY", () => {
     payload: { newCurrency: { units: "aa", amount: 100 } },
   });
   expect(state.currencies["aa"].amount).toBe(100);
+});
+test("currenciesReducer ADD_TRANSACTION_HISTORY", () => {
+  const state = currenciesReducer(currenciesInitialState, {
+    type: ADD_TRANSACTION_HISTORY,
+    payload: {
+      type: "DEPOSIT_TO_CURRENCY",
+      details: {
+        currency: { amount: 100, units: "USD", exchangeRate: 1.24 },
+        depositAmount: 22,
+      },
+    },
+  });
+  expect(state.transactionHistory.length).toBe(1);
 });
 
 test("currenciesReducer no type", () => {

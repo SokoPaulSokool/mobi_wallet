@@ -61,7 +61,7 @@ const LandingPage: React.FC = () => {
       setCurrencyList(currencies);
     }
     return () => {};
-  }, [currenciesState?.currencies]);
+  }, [currenciesState?.currencies]);  
 
   const updateTotalisedAmount = () => {
     if (currenciesState?.defaultCurrency && currencyList) {

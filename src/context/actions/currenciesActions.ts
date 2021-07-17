@@ -1,9 +1,24 @@
-import Currency from "../../interfaces/CurrencyInterfaces";
-import { ADD_CURRENCY, DEPOSIT_TO_CURRENCY, EXCHANGE_CURRENCY } from "./types";
+import Currency, {
+  DepositTransaction,
+  ExchangeTransaction,
+  Transaction,
+} from "../../interfaces/CurrencyInterfaces";
+import {
+  ADD_CURRENCY,
+  ADD_TRANSACTION_HISTORY,
+  DEPOSIT_TO_CURRENCY,
+  EXCHANGE_CURRENCY,
+} from "./types";
 import { exchangeCurrency } from "../../helpers/generalHelpers";
 import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
-
+const transactionHistoryAction =
+  (transaction: Transaction) => (dispatch: any) => {
+    dispatch({
+      type: ADD_TRANSACTION_HISTORY,
+      payload: { transaction },
+    });
+  };
 export const depositCurrency =
   (currency: Currency, depositAmount: number) => (dispatch: any) => {
     const newAmount = currency.amount + depositAmount;
@@ -11,6 +26,15 @@ export const depositCurrency =
       type: DEPOSIT_TO_CURRENCY,
       payload: { currencyUnits: currency.units, newAmount },
     });
+    const depositTransation: DepositTransaction = {
+      currency,
+      depositAmount,
+    };
+    const transaction: Transaction = {
+      type: DEPOSIT_TO_CURRENCY,
+      details: depositTransation,
+    };
+    transactionHistoryAction(transaction)(dispatch);
   };
 
 export const currencyExchange =
@@ -33,6 +57,16 @@ export const currencyExchange =
         toCurrency: { units: toCurrency.units, amount: newToCurrencyTotal },
       },
     });
+    const exchangeCurrencyTransation: ExchangeTransaction = {
+      amountToExchange,
+      fromCurrency,
+      toCurrency,
+    };
+    const transaction: Transaction = {
+      type: EXCHANGE_CURRENCY,
+      details: exchangeCurrencyTransation,
+    };
+    transactionHistoryAction(transaction)(dispatch);
   };
 
 export const changeDefaultCurrency =
@@ -43,12 +77,9 @@ export const changeDefaultCurrency =
     });
   };
 
-export const addCurrency =
-  (newCurrency: Currency) => (dispatch: any) => {
-    dispatch({
-      type: ADD_CURRENCY,
-      payload: { newCurrency },
-    });
-  };
-
-
+export const addCurrency = (newCurrency: Currency) => (dispatch: any) => {
+  dispatch({
+    type: ADD_CURRENCY,
+    payload: { newCurrency },
+  });
+};

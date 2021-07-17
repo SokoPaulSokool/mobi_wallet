@@ -76,7 +76,8 @@ test("floating menu", async() => {
     fireEvent.click(addNewCurrency)
   }
   // expect(cardButtons.value).toBe("USD");
-  expect(asFragment()).toMatchSnapshot();
+  // expect(asFragment()).toMatchSnapshot();
+  
 
 });
 

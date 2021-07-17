@@ -1,12 +1,16 @@
 import { CurrenciesState } from "../../interfaces/CurrencyInterfaces";
 import {
   ADD_CURRENCY,
+  ADD_TRANSACTION_HISTORY,
   DEPOSIT_TO_CURRENCY,
   EXCHANGE_CURRENCY,
 } from "../actions/types";
 import { CHANGE_DEFAULT_CURRENCY } from "../../constants/generalConstants";
 
-export const currenciesReducer = (state: CurrenciesState, { type, payload }: any) => {
+export const currenciesReducer = (
+  state: CurrenciesState,
+  { type, payload }: any
+) => {
   switch (type) {
     case DEPOSIT_TO_CURRENCY:
       return {
@@ -46,6 +50,13 @@ export const currenciesReducer = (state: CurrenciesState, { type, payload }: any
           ...state.currencies,
           [payload.newCurrency.units]: payload.newCurrency,
         },
+      };
+    case ADD_TRANSACTION_HISTORY:
+      return {
+        ...state,
+        transactionHistory: [
+          ...state.transactionHistory,payload.transaction,
+        ],
       };
 
     default:

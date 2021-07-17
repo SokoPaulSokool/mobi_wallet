@@ -1,0 +1,32 @@
+@import "../../../assets/theme/colors.scss";
+.transaction-history{
+    .transactions{
+        max-height: 40vh;
+        overflow-y: auto;
+        margin: 10px 30px;
+        .transaction{
+            margin: 10px 0;
+            padding: 5px 4px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            &> :nth-child(2){
+                display: flex;
+                justify-content: space-between;
+            }
+          
+        }
+        &-deposit{
+          
+            background: rgba($secondary,  0.2);
+
+            &:first-child{}
+          
+
+        } 
+         &-exchange{
+            background: rgba($primary,  0.2);
+         
+        }
+    }
+}
