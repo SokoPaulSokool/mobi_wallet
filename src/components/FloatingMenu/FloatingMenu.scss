@@ -1,52 +1,65 @@
 @import "../../assets/theme/colors.scss";
-.floating-menu{
-    position: fixed;
-    bottom: 8vh;
-    right: 3vw;
+.floating-menu {
+  position: fixed;
+  bottom: 8vh;
+  right: 3vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: $accent;
+    transform: scale(1.4) translateX(10px);
+  }
+
+  .menu-toggle {
+    margin-top: 15px;
+    cursor: pointer;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .menu-items__show {
+    transform: translateY(0);
+  }
+  .menu-items__hide {
+    transform: translateY(50vh);
+    opacity: 0;
+  }
+
+  .menu-items {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    .circle{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: $accent;
-        transform: scale(1.4) translateX(10px);
-        
-    }
+    flex: 1 1;
+    transition: all 0.5s;
 
-    .menu-toggle{
-        margin-top: 15px;
-        // position: absolute;
-        // transform: scale(1.4);
-        // bottom: 8vh;
-        // right: 2vw;
-
-    }
-
-    .menu-items{
-        display: flex;
-        flex-direction: column;
-        flex: 1 1;
-        .item{
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            min-height: 20px;
-            margin: 10px 0;
-            flex: 1 1;
-            background: $primary;
-            border-bottom-left-radius: 20px;
-            border-top-left-radius: 20px;
-            padding: 4px 0 4px 16px;
-            color: $white;
-            .circle{
-                margin-left: 12px;
-                // transform: scale(1.4) translateX(10px);
-            }
-            
+    .item-details {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        .item-name {
+          right: 40px;
+          opacity: 1;
         }
+      }
+      .item-name {
+        transition: all 0.4s;
+        right: 0;
+        opacity: 0;
+        border-radius: 30px;
+        cursor: pointer;
+        white-space: nowrap;
+        top: 50%;
+        background: $accent;
+        transform: translateY(-50%);
+        position: absolute;
+        min-width: 100%;
+        padding: 10px 20px 10px;
+      }
     }
+  }
 }

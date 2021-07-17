@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import AddIcon from "@material-ui/icons/Add";
+import CloseIcon from "@material-ui/icons/Close";
+import FilterListIcon from "@material-ui/icons/FilterList";
 import "./FloatingMenu.scss";
 import {
   CHANGE_DEFAULT_CURRENCY,
@@ -20,25 +23,30 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   return (
     <div data-testid="floating-menu-list" className="floating-menu">
-      {isMenuOpen && (
-        <div className="menu-items">
-          {menuItems.map((item, i) => {
-            return (
-              <div
-                key={i + "k"}
-                data-testid={"floating-menu-list-item-"+i}
-                className="item"
-                onClick={() => {
-                  onMenuClick(item);
-                }}
-              >
-                <p>{item}</p>
-                <div className="circle"></div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+      <div
+        className={
+          isMenuOpen
+            ? "menu-items menu-items__show"
+            : "menu-items menu-items__hide"
+        }
+      >
+        {menuItems.map((item, i) => {
+          return (
+            <div
+              key={i + "k"}
+              data-testid={"floating-menu-list-item-" + i}
+              className="item-details circle my-3"
+              onClick={() => {
+                onMenuClick(item);
+              }}
+            >
+              {i === 0 && <FilterListIcon />}
+              {i === 1 && <AddIcon />}
+              <div className="item-name">{item}</div>
+            </div>
+          );
+        })}
+      </div>
 
       <div
         className="circle menu-toggle"
@@ -46,7 +54,9 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
         onClick={() => {
           setIsMenuOpen(!isMenuOpen);
         }}
-      ></div>
+      >
+        <CloseIcon />
+      </div>
     </div>
   );
 };

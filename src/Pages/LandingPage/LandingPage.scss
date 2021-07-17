@@ -23,10 +23,14 @@
       height: 60px;
       margin-left: 10px;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   .currencies{
+    position: relative;
     margin-top: 6vh;
       height: 60vh;
       width: 100%;

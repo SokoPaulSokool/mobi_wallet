@@ -21,6 +21,7 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 import { changeDefaultCurrency } from "../../context/actions/currenciesActions";
+import PersonIcon from "@material-ui/icons/Person";
 
 const LandingPage: React.FC = () => {
   const { currenciesState, currenciesDispatch } = useContext(GlobalContext);
@@ -136,7 +137,9 @@ const LandingPage: React.FC = () => {
       <div className="profile">
         <div className="profile-details">
           <h3 data-testid="user-name">John Doe</h3>
-          <div className="circle app-bg-accent"></div>
+          <div className="circle app-bg-accent">
+            <PersonIcon/>
+          </div>
         </div>
         <div className="default-currency">
           <Autocomplete

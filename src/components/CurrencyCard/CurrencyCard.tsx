@@ -14,8 +14,8 @@ const CurrencyCard: React.FC<CurrencyCardProps> = ({
   onExchangeClick,
 }) => {
   return (
-    <div className="currency-card app-bg-primary app-clr-white">
-      <div className="close-btn">Close</div>
+    <div className="currency-card  app-clr-white">
+      <div className="close-btn"></div>
       <div className="metal-plate app-bg-accent">
         <div className="line"></div>
         <div className="line"></div>
