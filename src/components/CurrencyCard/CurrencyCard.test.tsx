@@ -31,26 +31,24 @@ test("CurrencyCard should set the right amount and units", () => {
 });
 
 test("CurrencyCard button clicks", () => {
-  let depositClick="";
-  let exchangeClick="";
+  let depositClick = "";
+  let exchangeClick = "";
   const { getByTestId } = render(
     <CurrencyCard
       currency={{ amount: 0, units: "USD", exchangeRate: 8 }}
       onDepositClick={() => {
-        depositClick="depositClick"
+        depositClick = "depositClick";
       }}
       onExchangeClick={() => {
-        exchangeClick="exchangeClick"
+        exchangeClick = "exchangeClick";
       }}
     />
   );
   const exchangeBtn = getByTestId("card-buttons").querySelectorAll("button");
-  if(exchangeBtn){
-    fireEvent.click(exchangeBtn[0])
-    fireEvent.click(exchangeBtn[1])
-
+  if (exchangeBtn) {
+    fireEvent.click(exchangeBtn[0]);
+    fireEvent.click(exchangeBtn[1]);
   }
   expect(depositClick).toBe("depositClick");
   expect(exchangeClick).toBe("exchangeClick");
 });
-

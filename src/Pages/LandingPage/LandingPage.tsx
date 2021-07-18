@@ -9,7 +9,6 @@ import FloatingMenu from "../../components/FloatingMenu/FloatingMenu";
 import {
   TRANSACTION_HISTORY,
   ADD_NEW_CURRENCY,
-  CHANGE_DEFAULT_CURRENCY,
 } from "../../constants/generalConstants";
 import AddCurrencyDialog from "../../components/Dialogs/AddCurrencyDialog/AddCurrencyDialog";
 import TransactionHistoryDialog from "../../components/Dialogs/TransactionHistoryDialog/TransactionHistoryDialog";
@@ -42,17 +41,15 @@ const LandingPage: React.FC = () => {
   const [isTransactionHistoryDialogOpen, setIsTransactionHistoryDialogOpen] =
     useState(false);
 
-
-    useEffect(() => {
-      if (currenciesState?.currencies) {
-        const currencies = Object.values(currenciesState?.currencies).map(
-          (currency) => currency
-        );
-        setCurrencyList(currencies);
-      }
-      return () => {
-      };
-    }, []);
+  useEffect(() => {
+    if (currenciesState?.currencies) {
+      const currencies = Object.values(currenciesState?.currencies).map(
+        (currency) => currency
+      );
+      setCurrencyList(currencies);
+    }
+    return () => {};
+  }, []);
 
   useEffect(() => {
     if (currenciesState?.currencies) {
@@ -62,7 +59,7 @@ const LandingPage: React.FC = () => {
       setCurrencyList(currencies);
     }
     return () => {};
-  }, [currenciesState?.currencies]);  
+  }, [currenciesState?.currencies]);
 
   const updateTotalisedAmount = () => {
     if (currenciesState?.defaultCurrency && currencyList) {
@@ -82,16 +79,10 @@ const LandingPage: React.FC = () => {
   }, [currenciesState?.defaultCurrency, currencyList]);
 
   const handleFloatingMenuClick = (clickedOption: String) => {
-    switch (clickedOption) {
-      case TRANSACTION_HISTORY:
-        setIsTransactionHistoryDialogOpen(!isTransactionHistoryDialogOpen);
-
-        break;
-      case ADD_NEW_CURRENCY:
-        setIsAddNewCurrencyDialogOpen(!isAddNewCurrencyDialogOpen);
-        break;
-      default:
-        break;
+    if (clickedOption === TRANSACTION_HISTORY) {
+      setIsTransactionHistoryDialogOpen(!isTransactionHistoryDialogOpen);
+    } else if (clickedOption === ADD_NEW_CURRENCY) {
+      setIsAddNewCurrencyDialogOpen(!isAddNewCurrencyDialogOpen);
     }
   };
 
@@ -133,12 +124,12 @@ const LandingPage: React.FC = () => {
         }}
       ></TransactionHistoryDialog>
 
-      <h1 data-testid="app-name">Mobi Wallet</h1>
+      <h1 data-testid="app-name" className="w-100">Mobi Wallet</h1>
       <div className="profile">
         <div className="profile-details">
           <h3 data-testid="user-name">John Doe</h3>
           <div className="circle app-bg-accent">
-            <PersonIcon/>
+            <PersonIcon />
           </div>
         </div>
         <div className="default-currency">
@@ -158,7 +149,8 @@ const LandingPage: React.FC = () => {
       <div className="totalized">
         <p data-testid="totallised-value-label">Totalised value</p>
         <h1 data-testid="totallised-value-details">
-          {currenciesState?.defaultCurrency.units} {totalisedAmount}
+          {currenciesState?.defaultCurrency.units} {" : "}
+          {totalisedAmount}
         </h1>
       </div>
       <div className="currencies" data-testid="currency-cards">

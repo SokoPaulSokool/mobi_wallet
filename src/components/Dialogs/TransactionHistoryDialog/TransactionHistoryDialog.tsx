@@ -1,12 +1,11 @@
 import { Dialog, DialogTitle, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { GlobalContext } from "../../../context/provider";
 import { DialogProps } from "../../../interfaces/DialogInterfaces";
-import { DialogContent, TextField } from "@material-ui/core";
+import { DialogContent } from "@material-ui/core";
 import {
   Transaction,
-  DepositTransaction,
-  ExchangeTransaction,
 } from "../../../interfaces/CurrencyInterfaces";
 import {
   DEPOSIT_TO_CURRENCY,
@@ -45,6 +44,13 @@ const TransactionHistoryDialog: React.FC<DialogProps> = ({ onClose, open }) => {
               Transaction History
             </Typography>
           </div>
+          <div className="close-btn">
+            <CloseIcon
+              data-testid="close-btn"
+              className="pointer"
+              onClick={handleClose}
+            />
+          </div>
         </DialogTitle>
         <DialogContent>
           <div className="transactions" data-testid="transaction">
@@ -53,7 +59,7 @@ const TransactionHistoryDialog: React.FC<DialogProps> = ({ onClose, open }) => {
               transactionHistory.map((transaction: Transaction, i) => {
                 const tranactionDetails: any = transaction.details;
                 return (
-                  <div key={i + "o"} >
+                  <div key={i + "o"}>
                     {transaction.type === DEPOSIT_TO_CURRENCY && (
                       <div className="transactions-deposit transaction">
                         <h4> Deposit Transaction</h4>

@@ -51,13 +51,9 @@ test("FloatingMenu toggle button should hide menu", () => {
   const toggleButton = getByTestId("floating-menu-list-toggle");
   fireEvent.click(toggleButton, {});
 
-  let menuItem1: any = "not set";
-  expect(menuItem1).toBe("not set");
-  try {
-    menuItem1 = getByTestId("floating-menu-list-item-0");
-  } catch (error) {
-    menuItem1 = "error";
-  }
+  const menuItems = getByTestId("menu-items");
+  menuItems.classList;
+  const classes = menuItems.classList.value.split(" ");
 
-  expect(menuItem1).toBe("error");
+  expect(classes[1]).toBe("menu-items__hide");
 });

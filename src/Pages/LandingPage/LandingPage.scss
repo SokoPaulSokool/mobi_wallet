@@ -4,6 +4,9 @@
     align-items: center;
     margin: 0 auto;
     width: 100%;
+    @media (max-width: 550px) {
+      margin-top: 15vh ;
+    }
   }
 
   .profile {
@@ -32,10 +35,14 @@
   .currencies{
     position: relative;
     margin-top: 6vh;
-      height: 60vh;
+      height: 70vh;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       overflow-y: auto;
+      @media (max-width: 550px) {
+        margin-top: 1vh ;
+        height: 70vh;
+      }
   }
 }

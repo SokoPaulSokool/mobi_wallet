@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { DialogProps } from "../../../interfaces/DialogInterfaces";
 import AppButton from "../../common/AppButton/AppButton";
 import { GlobalContext } from "../../../context/provider";
@@ -40,7 +41,7 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
     if (depositAmount) {
       depositCurrency(selectedValue, depositAmount)(currenciesDispatch);
       setError("");
-    }else{
+    } else {
       setError("No amount to deposit");
     }
   };
@@ -53,6 +54,13 @@ const DepositCurrencyDialog: React.FC<DialogProps> = ({
               Deposit
             </Typography>
             <p className="error-text">{error}</p>
+          </div>
+          <div className="close-btn">
+            <CloseIcon
+              data-testid="close-btn"
+              className="pointer"
+              onClick={handleClose}
+            />
           </div>
         </DialogTitle>
         <DialogContent>

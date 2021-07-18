@@ -4,7 +4,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import "./FloatingMenu.scss";
 import {
-  CHANGE_DEFAULT_CURRENCY,
   ADD_NEW_CURRENCY,
   TRANSACTION_HISTORY,
 } from "../../constants/generalConstants";
@@ -24,6 +23,7 @@ const FloatingMenu: React.FC<FloatingMenuProps> = ({
   return (
     <div data-testid="floating-menu-list" className="floating-menu">
       <div
+      data-testid="menu-items"
         className={
           isMenuOpen
             ? "menu-items menu-items__show"

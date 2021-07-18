@@ -18,8 +18,8 @@
     margin-top: 15px;
     cursor: pointer;
     display: flex;
-      align-items: center;
-      justify-content: center;
+    align-items: center;
+    justify-content: center;
   }
   .menu-items__show {
     transform: translateY(0);
@@ -48,7 +48,7 @@
       }
       .item-name {
         transition: all 0.4s;
-        right: 0;
+        right: -40vw;
         opacity: 0;
         border-radius: 30px;
         cursor: pointer;

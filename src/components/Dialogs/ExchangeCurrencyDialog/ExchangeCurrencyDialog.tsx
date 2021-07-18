@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { DialogProps } from "../../../interfaces/DialogInterfaces";
 import { DialogContent, TextField } from "@material-ui/core";
 import { AppButton } from "../../common/AppButton/AppButton";
+import CloseIcon from "@material-ui/icons/Close";
 import Currency from "../../../interfaces/CurrencyInterfaces";
 import { useState, useEffect } from "react";
 import { Autocomplete } from "@material-ui/lab";
@@ -59,7 +60,11 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
     if (exchangeAmount && selectedExchangeCurrency && selectedCurrency) {
       handleAmountChange(exchangeAmount);
       setConvertedAmount(
-        exchangeCurrency(exchangeAmount, selectedCurrency, selectedExchangeCurrency)
+        exchangeCurrency(
+          exchangeAmount,
+          selectedCurrency,
+          selectedExchangeCurrency
+        )
       );
     }
     return () => {};
@@ -85,7 +90,7 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
         selectedExchangeCurrency
       )(currenciesDispatch);
       setError("");
-    }else if(exchangeAmount===0){
+    } else if (exchangeAmount === 0) {
       setError("No amount to exchange");
     }
   };
@@ -94,7 +99,7 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
     setExchangeAmount(value);
     if (selectedCurrency && value > selectedCurrency?.amount) {
       setError("The amount is greater than the available amount");
-    }else{
+    } else {
       setError("");
     }
   };
@@ -108,6 +113,13 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
               Exchange Currency
             </Typography>
             <p className="error-text">{error}</p>
+          </div>
+          <div className="close-btn">
+            <CloseIcon
+              data-testid="close-btn"
+              className="pointer"
+              onClick={handleClose}
+            />
           </div>
         </DialogTitle>
         <DialogContent>
@@ -137,7 +149,11 @@ const ExchangeCurrencyDialog: React.FC<DialogProps> = ({
               getOptionLabel={(option) => option.units}
               onChange={(event, newValue) => handleCurrencyChange(newValue)}
               renderInput={(params) => (
-                <TextField {...params} required={true} label="Select Currency" />
+                <TextField
+                  {...params}
+                  required={true}
+                  label="Select Currency"
+                />
               )}
             />
             <h3 className="my-2">{convertedAmount}</h3>

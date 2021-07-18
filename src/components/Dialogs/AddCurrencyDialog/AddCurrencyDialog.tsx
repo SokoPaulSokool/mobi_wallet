@@ -8,6 +8,7 @@ import {
 import React, { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { addCurrency } from "../../../context/actions/currenciesActions";
 import Currency from "../../../interfaces/CurrencyInterfaces";
 import { DialogProps } from "../../../interfaces/DialogInterfaces";
@@ -70,14 +71,21 @@ const AddCurrencyDialog: React.FC<DialogProps> = ({
         <DialogTitle id="simple-dialog-title">
           <div>
             <Typography variant="h4" data-testid="dialog-title">
-              Deposit
+              Add New Currency
             </Typography>
             <p className="error-text">{error}</p>
+          </div>
+          <div className="close-btn">
+            <CloseIcon
+              data-testid="close-btn"
+              className="pointer"
+              onClick={handleClose}
+            />
           </div>
         </DialogTitle>
         <DialogContent>
           <form
-          data-testid="submit-form"
+            data-testid="submit-form"
             onSubmit={handleSubmit}
             className="d-flex row"
             autoComplete="off"

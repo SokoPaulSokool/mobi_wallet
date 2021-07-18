@@ -6,13 +6,17 @@
 
 ## How to run the app
 
-- yarn install
-- yarn start
-- got to <http://localhost:3000/>
-- Run tests using  yarn test
+- `yarn install`
+- `yarn start`
+- Got to <http://localhost:3000/>
+- To Run tests, use `yarn test`
   
 ## Libraries used
 
 - Material ui <https://material-ui.com/>. Mainly used it for the input and dialog components. The Dialog component made it easy for me to set up dialogs quickly.
 - Bootstrap. Mainly used it's grid and inline classes for styling.
-- Font Awesome. Mainly used it's icons
+
+## Extras
+
+- Every currency added, has a Euro exchange rate
+- While converting a currency, it's first converted to Euro then converted to the new currency

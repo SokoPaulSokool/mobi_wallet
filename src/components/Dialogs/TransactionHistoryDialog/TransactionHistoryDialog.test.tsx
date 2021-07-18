@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import TransactionHistoryDialog from "./TransactionHistoryDialog";
 import { GlobalContext } from "../../../context/provider";
 import { currenciesReducer } from "../../../context/reducers/currenciesReducer";
@@ -53,4 +53,12 @@ test("should display transactions", () => {
   const transaction = getByTestId("transaction");
 
   expect(transaction).toBeInTheDocument();
+});
+
+test("close ExchangeCurrencyDialog", () => {
+  const { getByTestId } = render(
+    <TransactionHistoryDialog onClose={() => {}} open={true} />
+  );
+  const closeBtn = getByTestId("close-btn");
+  fireEvent.click(closeBtn);
 });

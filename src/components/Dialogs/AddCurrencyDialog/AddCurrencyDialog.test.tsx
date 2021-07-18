@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import AddCurrencyDialog from "./AddCurrencyDialog";
-jest.mock('../../../context/actions/currenciesActions');
+jest.mock("../../../context/actions/currenciesActions");
 import { addCurrency } from "../../../context/actions/currenciesActions";
 test("renders AddCurrencyDialog", () => {
   const { getByTestId } = render(
@@ -9,6 +9,13 @@ test("renders AddCurrencyDialog", () => {
   );
   const dialogTitle = getByTestId("dialog-title");
   expect(dialogTitle).toBeInTheDocument();
+});
+test("close AddCurrencyDialog", () => {
+  const { getByTestId } = render(
+    <AddCurrencyDialog onClose={() => {}} open={true} />
+  );
+  const closeBtn = getByTestId("close-btn");
+  fireEvent.click(closeBtn);
 });
 test("AddCurrencyDialog units change", () => {
   const { getByTestId } = render(
@@ -56,7 +63,7 @@ test("AddCurrencyDialog currency exchange rate change should accept only number"
   expect(currencyExchangeRate?.value).toBe("0");
 });
 test("AddCurrencyDialog form submit", () => {
-  addCurrency.mockImplementation(()=>()=>{});
+  addCurrency.mockImplementation(() => () => {});
 
   const { getByTestId } = render(
     <AddCurrencyDialog
@@ -78,7 +85,6 @@ test("AddCurrencyDialog form submit", () => {
   }
 
   const submitBtn = getByTestId("submit-form").querySelector("button");
-  
 
   if (submitBtn) {
     fireEvent.submit(submitBtn, {

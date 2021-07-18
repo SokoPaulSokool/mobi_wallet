@@ -1,5 +1,4 @@
 import Currency from "../interfaces/CurrencyInterfaces";
-import { depositCurrency } from "../context/actions/currenciesActions";
 
 export const exchangeCurrency = (
   amountToExchange: number,

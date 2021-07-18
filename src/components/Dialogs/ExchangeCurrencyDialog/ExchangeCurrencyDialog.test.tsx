@@ -12,6 +12,14 @@ test("renders ExchangeCurrencyDialog", () => {
   expect(dialogTitle).toBeInTheDocument();
 });
 
+test("close ExchangeCurrencyDialog", () => {
+  const { getByTestId } = render(
+    <ExchangeCurrencyDialog onClose={() => {}} open={true} />
+  );
+  const closeBtn = getByTestId("close-btn");
+  fireEvent.click(closeBtn);
+});
+
 test("ExchangeCurrencyDialog input change", async () => {
   const { getByTestId } = render(
     <ExchangeCurrencyDialog
@@ -93,4 +101,50 @@ test("ExchangeCurrencyDialog form submit", async () => {
   }
   expect(submitBtn).toBeInTheDocument();
   expect(currencyExchange).toHaveBeenCalled();
+});
+
+test("ExchangeCurrencyDialog form submit with zero ammount", async () => {
+  currencyExchange.mockImplementation(() => () => {});
+
+  const { getByTestId } = render(
+    <ExchangeCurrencyDialog
+      onClose={() => {}}
+      open={true}
+      currencies={[
+        { amount: 1, exchangeRate: 1, units: "USD" },
+        { amount: 1, exchangeRate: 1, units: "EURO" },
+      ]}
+      selectedValue={{ amount: 1, exchangeRate: 1, units: "KPP" }}
+    />
+  );
+
+  const exchangeAmount = getByTestId("exchange-amount").querySelector("input");
+  if (exchangeAmount) {
+    fireEvent.change(exchangeAmount, { target: { value: "0" } });
+  }
+  await waitFor(() => {
+    expect(exchangeAmount.value).toBe("0");
+  });
+
+  const autocomplete = getByTestId("exchange-currency");
+  const exchangeCurrency = autocomplete.querySelector("input");
+  autocomplete.focus();
+  if (exchangeCurrency) {
+    await fireEvent.change(exchangeCurrency, { target: { value: "U" } });
+    await fireEvent.keyDown(autocomplete, { key: "ArrowDown" });
+    await fireEvent.keyDown(autocomplete, { key: "Enter" });
+  }
+  await waitFor(() => {
+    expect(exchangeCurrency.value).toBe("USD");
+  });
+
+  const submitBtn = getByTestId("submit-form").querySelector("button");
+
+  if (submitBtn) {
+    fireEvent.submit(submitBtn, {
+      preventDefault: () => {},
+    });
+  }
+  expect(submitBtn).toBeInTheDocument();
+  expect(currencyExchange).not.toHaveBeenCalled();
 });
